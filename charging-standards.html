@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收费标准 - 高明检测系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <style>
+        /* Inner Layout Reuse */
+        .inner-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+            overflow: hidden;
+        }
+
+        .inner-sidebar {
+            width: 240px;
+            background-color: #fafbfc;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-list {
+            padding: 16px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: #e6f7ff;
+            color: #0060df;
+        }
+
+        .menu-item.active {
+            background-color: #e6f7ff;
+            color: #0060df;
+            font-weight: 600;
+        }
+
+        .inner-content {
+            flex: 1;
+            overflow-y: auto;
+            background: #f0f2f5;
+            padding: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container-vertical">
+        <header class="main-header">
+            <div class="header-left">
+                <a href="dashboard.html" class="brand-logo">
+                    <i class="fa-solid fa-water"></i>
+                    高明检测管理系统
+                </a>
+                <nav class="main-nav">
+                    <a href="dashboard.html" class="nav-item-top">工作台</a>
+                    <a href="entrustment.html" class="nav-item-top active">委托管理</a>
+                    <a href="indoor-allocation.html" class="nav-item-top">任务分配</a>
+                    <a href="sample.html" class="nav-item-top">检测前准备</a>
+                    <a href="indoor-test.html" class="nav-item-top">室内检测</a>
+                    <a href="site-execution.html" class="nav-item-top">现场检测</a>
+                    <a href="reports.html" class="nav-item-top">报告管理</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="user-dropdown">
+                    <div class="avatar">A</div>
+                    <span>管理员</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="inner-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="inner-sidebar">
+                <div style="padding: 16px 16px 8px 16px; font-weight: 600; font-size: 14px; color: #999;">
+                    委托类别
+                </div>
+                <div class="menu-list">
+                    <a href="entrustment.html" class="menu-item">
+                        <i class="fa-solid fa-flask" style="width: 24px;"></i> 室内委托
+                    </a>
+                    <a href="site-entrustment.html" class="menu-item">
+                        <i class="fa-solid fa-truck-field" style="width: 24px;"></i> 现场委托
+                    </a>
+                    <a href="service-contract-settings.html" class="menu-item">
+                        <i class="fa-solid fa-file-contract" style="width: 24px;"></i> 服务单位、合同、服务费设置
+                    </a>
+                    <a href="charging-standards.html" class="menu-item active">
+                        <i class="fa-solid fa-file-invoice-dollar" style="width: 24px;"></i> 收费标准
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="inner-content">
+                <div style="max-width: 1400px; margin: 0 auto;">
+                    <div class="page-header mb-4"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="page-title">收费标准管理</h2>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" class="form-control" placeholder="输入标准名称或编号" style="width: 200px;">
+                            <button class="btn btn-primary">
+                                <i class="fa-solid fa-search" style="margin-right: 8px;"></i> 查询
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fa-solid fa-plus" style="margin-right: 8px;"></i> 新增
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">序号</th>
+                                        <th>标准编号</th>
+                                        <th>标准名称</th>
+                                        <th>发布单位</th>
+                                        <th>发布日期</th>
+                                        <th>默认标准</th>
+                                        <th>状态</th>
+                                        <th style="width: 150px;">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>BZ2022120700003</td>
+                                        <td>省建科院收费标准(2022)</td>
+                                        <td>省建科院</td>
+                                        <td>2022-12-06</td>
+                                        <td>是</td>
+                                        <td><span class="badge badge-success">启用</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="showStandardDetail()">编辑</button>
+                                            <button class="btn btn-sm btn-secondary">查看</button>
+                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>BZ2022120200003</td>
+                                        <td>预设收费标准</td>
+                                        <td>广东省建科院</td>
+                                        <td>2022-12-02</td>
+                                        <td>否</td>
+                                        <td><span class="badge badge-success">启用</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">编辑</button>
+                                            <button class="btn btn-sm btn-secondary">查看</button>
+                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Standard Detail Modal (Mock for "Edit") -->
+    <div class="modal-overlay" id="standardDetailModal">
+        <div class="modal-content" style="width: 900px; max-width: 95vw;">
+            <div class="modal-header">
+                <div class="modal-title">编辑收费标准 - 省建科院收费标准(2022)</div>
+                <div class="modal-close" onclick="closeModal('standardDetailModal')">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>检测项目</th>
+                                <th>收费项</th>
+                                <th>标准价格(元)</th>
+                                <th>收费依据</th>
+                                <th>计量单位</th>
+                                <th>条件</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>蒸压加气混凝土板</td>
+                                <td>纵向钢筋保护层厚度</td>
+                                <td>500.00</td>
+                                <td>2.2.1</td>
+                                <td>组</td>
+                                <td>default</td>
+                                <td><button class="btn btn-sm btn-secondary">编辑</button></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>蒸压加气混凝土板</td>
+                                <td>抗压强度</td>
+                                <td>300.00</td>
+                                <td>4.28.8</td>
+                                <td>组</td>
+                                <td>default</td>
+                                <td><button class="btn btn-sm btn-secondary">编辑</button></td>
+                            </tr>
+                            <!-- Low Strain Item (for integration demo) -->
+                            <tr style="background-color: #f0f9ff;">
+                                <td>99</td>
+                                <td>低应变法试验</td>
+                                <td>低应变法</td>
+                                <td>70.00</td>
+                                <td>DBJ/T 15-60-2019</td>
+                                <td>桩</td>
+                                <td>default</td>
+                                <td><button class="btn btn-sm btn-secondary">编辑</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('standardDetailModal')">取消</button>
+                <button class="btn btn-primary" onclick="closeModal('standardDetailModal')">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function showStandardDetail() {
+            document.getElementById('standardDetailModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

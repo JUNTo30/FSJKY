@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报告编写列表 - 高明检测管理系统</title>
+    <style>
+        /* Base Styles from main.css */
+        :root {
+            --primary-color: #1890ff;
+            --success-color: #52c41a;
+            --warning-color: #faad14;
+            --error-color: #ff4d4f;
+            --text-color: #333;
+            --bg-color: #f0f2f5;
+            --sidebar-width: 240px;
+            --header-height: 64px;
+            --card-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --white: #ffffff;
+            --border-color: #e8e8e8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* App Layout */
+        .app-container-vertical {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header */
+        .main-header {
+            height: var(--header-height);
+            background-color: var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .brand-logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-item-top {
+            font-size: 15px;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-item-top:hover {
+            color: var(--primary-color);
+            background: #e6f7ff;
+        }
+
+        .nav-item-top.active {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Sidebar & Content Layout */
+        .inner-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        .inner-sidebar {
+            width: 240px;
+            background-color: #fafbfc;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-list {
+            padding: 16px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .menu-item i {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .menu-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .menu-item.active {
+            background-color: #eaf5ff;
+            color: #0060df;
+            font-weight: 600;
+        }
+
+        .menu-item.active i {
+            color: #0060df;
+        }
+
+        .menu-item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-sidebar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-sidebar-info {
+            color: #1890ff;
+            background-color: transparent;
+        }
+
+        .badge-sidebar-warning {
+            background-color: #fff7e6;
+            color: #fa8c16;
+        }
+
+        .submenu {
+            margin-left: 24px;
+            border-left: 1px solid #e1f0ff;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            margin-top: -4px;
+        }
+
+        .submenu-item {
+            padding: 8px 0;
+            display: block;
+            color: #666;
+            font-size: 14px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .submenu-item:hover,
+        .submenu-item.active {
+            color: #0060df;
+        }
+
+        .inner-content {
+            flex: 1;
+            overflow-y: auto;
+            background: #f0f2f5;
+            padding: 24px;
+        }
+
+        /* Common Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            outline: none;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #40a9ff;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            border: 1px solid #d9d9d9;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-header {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .table th {
+            background: #fafafa;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .badge-success {
+            background: #f6ffed;
+            color: #52c41a;
+            border: 1px solid #b7eb8f;
+        }
+
+        .badge-warning {
+            background: #fffbe6;
+            color: #faad14;
+            border: 1px solid #ffe58f;
+        }
+
+        .badge-info {
+            background: #e6f7ff;
+            color: #1890ff;
+            border: 1px solid #91d5ff;
+        }
+
+        /* FontAwesome Imports (Simplified) */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+        /* Mocking basic icons if external load fails or using existing local fonts */
+        @font-face {
+            font-family: "Font Awesome 6 Free";
+            src: url(webfonts/fa-solid-900.woff2) format("woff2");
+            font-weight: 900;
+        }
+
+        .fa-solid {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container-vertical">
+        <header class="main-header">
+            <div class="header-left">
+                <a href="dashboard.html" class="brand-logo">
+                    <!-- Icon placeholder -->
+                    <span style="font-size: 20px;">🌊</span>
+                    高明检测管理系统
+                </a>
+                <nav class="main-nav">
+                    <a href="dashboard.html" class="nav-item-top">工作台</a>
+                    <a href="entrustment.html" class="nav-item-top">委托管理</a>
+                    <a href="indoor-allocation.html" class="nav-item-top">任务分配</a>
+                    <a href="sample.html" class="nav-item-top">检测前准备</a>
+                    <a href="site-scheduling.html" class="nav-item-top">现场调度</a>
+                    <a href="indoor-test.html" class="nav-item-top">室内检测</a>
+                    <a href="site-execution.html" class="nav-item-top active">现场检测</a>
+                    <a href="reports.html" class="nav-item-top">报告管理</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <div
+                        style="width: 32px; height: 32px; background: #1890ff; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        A</div>
+                    <span style="font-size: 14px;">管理员</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="inner-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="inner-sidebar">
+                <div style="padding: 16px 16px 8px 16px; font-weight: 600; font-size: 14px; color: #999;">
+                    检测管理
+                </div>
+                <div class="menu-list">
+                    <a href="site-execution.html" class="menu-item">
+                        <span class="menu-item-left"><i class="fa-solid fa-list-check"></i> 工作量登记</span>
+                        <span class="badge-sidebar badge-sidebar-info">5</span>
+                    </a>
+                    <a href="site-report-generate.html" class="menu-item">
+                        <span class="menu-item-left"><i class="fa-solid fa-file-circle-plus"></i> 生成报告</span>
+                        <span class="badge-sidebar badge-sidebar-warning"
+                            style="background-color: #fff7e6; color: #fa8c16;">3</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="site-report-list.html" class="submenu-item active">报告编写列表</a>
+                    </div>
+                    <a href="site-report-edit.html" class="menu-item">
+                        <span class="menu-item-left"><i class="fa-solid fa-file-pen"></i> 报告编写</span>
+                    </a>
+                    <a href="site-data-verify.html" class="menu-item">
+                        <span class="menu-item-left"><i class="fa-solid fa-clipboard-check"></i> 检测数据校核</span>
+                        <span class="badge-sidebar badge-sidebar-warning"
+                            style="background-color: #fff7e6; color: #fa8c16;">4</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="inner-content">
+                <div style="max-width: 1200px; margin: 0 auto;">
+                    <div class="mb-4">
+                        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">报告编写列表</h2>
+                        <p style="color: #666; font-size: 14px; margin: 0;">查看已生成并待编写的检测报告</p>
+                    </div>
+
+                    <!-- Report List Table (Based on 'Recently Generated Reports' from site-report-generate.html) -->
+                    <div class="table-card">
+                        <div class="card-header">
+                            <div style="font-weight: 600;">报告列表</div>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" placeholder="搜索报告编号/工程名称..."
+                                    style="padding: 6px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px; width: 240px;">
+                                <button class="btn btn-secondary">
+                                    <i class="fa-solid fa-filter"></i> 筛选
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>报告编号</th>
+                                        <th>工程名称</th>
+                                        <th>检测项目</th>
+                                        <th>生成时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 500; color: #1890ff;">FS2026-001</td>
+                                        <td>市政道路路基检测</td>
+                                        <td>低应变法检测</td>
+                                        <td>2026-01-08 14:30</td>
+                                        <td><span class="badge badge-info">待编写</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-report-edit.html'">
+                                                <i class="fa-solid fa-pen"></i> 编写
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500; color: #1890ff;">BG-20260108-02</td>
+                                        <td>杨梅河整治工程</td>
+                                        <td>钢筋保护层检测</td>
+                                        <td>2026-01-08 11:20</td>
+                                        <td><span class="badge badge-success">已编写</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-report-edit.html'">
+                                                <i class="fa-solid fa-eye"></i> 查看
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500; color: #1890ff;">BG-20260109-05</td>
+                                        <td>高明大桥西引桥加固工程</td>
+                                        <td>桥梁动静载试验</td>
+                                        <td>2026-01-09 09:15</td>
+                                        <td><span class="badge badge-info">待编写</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-report-edit.html'">
+                                                <i class="fa-solid fa-pen"></i> 编写
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 500; color: #1890ff;">BG-20260109-08</td>
+                                        <td>沧江泵站结构实体检测</td>
+                                        <td>混凝土强度</td>
+                                        <td>2026-01-09 16:45</td>
+                                        <td><span class="badge badge-info">待编写</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-report-edit.html'">
+                                                <i class="fa-solid fa-pen"></i> 编写
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div
+                            style="padding: 16px; border-top: 1px solid #eee; display: flex; justify-content: flex-end;">
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-sm btn-secondary" disabled>上一页</button>
+                                <button class="btn btn-sm btn-primary">1</button>
+                                <button class="btn btn-sm btn-secondary">2</button>
+                                <button class="btn btn-sm btn-secondary">下一页</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

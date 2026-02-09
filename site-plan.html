@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现场计划管理 - 高明检测系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="app-container-vertical">
+        <header class="main-header">
+            <div class="header-left">
+                <a href="dashboard.html" class="brand-logo">
+                    <i class="fa-solid fa-water"></i>
+                    高明检测管理系统
+                </a>
+                <nav class="main-nav">
+                    <a href="dashboard.html" class="nav-item-top">工作台</a>
+                    <a href="entrustment.html" class="nav-item-top">委托管理</a>
+                    <a href="indoor-allocation.html" class="nav-item-top active">任务分配</a>
+                    <a href="sample.html" class="nav-item-top">检测前准备</a>
+                    <a href="indoor-test.html" class="nav-item-top">室内检测</a>
+                    <a href="site-execution.html" class="nav-item-top">现场检测</a>
+                    <a href="reports.html" class="nav-item-top">报告管理</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="user-dropdown">
+                    <div class="avatar">A</div>
+                    <span>管理员</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="inner-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="inner-sidebar">
+                <div style="padding: 16px 16px 8px 16px; font-weight: 600; font-size: 14px; color: #999;">
+                    任务分配
+                </div>
+                <div class="menu-list">
+                    <a href="indoor-allocation.html" class="menu-item">
+                        <i class="fa-solid fa-flask" style="width: 24px;"></i> 室内分配
+                    </a>
+
+                    <div style="margin-top: 8px; margin-bottom: 4px; padding: 0 16px; font-size: 12px; color: #999;">
+                        现场分配</div>
+                    <a href="site-allocation-order.html" class="menu-item">
+                        <i class="fa-solid fa-file-contract" style="width: 24px;"></i> 现场任务下达
+                    </a>
+                    <a href="site-allocation-arrangement.html" class="menu-item">
+                        <i class="fa-solid fa-users-gear" style="width: 24px;"></i> 现场工作安排
+                    </a>
+                    <a href="site-plan.html" class="menu-item active">
+                        <i class="fa-solid fa-calendar-check" style="width: 24px;"></i> 现场工作计划
+                    </a>
+                </div>
+            </aside>
+
+            <main class="inner-content">
+                <div style="max-width: 100%; margin: 0 auto;">
+                    <div class="mb-4">
+                        <h2 class="page-title">现场计划管理</h2>
+                        <p class="text-muted">制定现场检测计划，安排进场时间与人员</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="table-card">
+                        <div class="card-header" style="justify-content: space-between;">
+                            <div class="search-box" style="position: relative; width: 300px;">
+                                <i class="fa-solid fa-search"
+                                    style="position: absolute; left: 10px; top: 10px; color: #999;"></i>
+                                <input type="text" class="form-control" placeholder="搜索委托单号/工程名称..."
+                                    style="padding-left: 32px;">
+                            </div>
+                            <button class="btn btn-primary" onclick="showModal('addPlanModal')">
+                                <i class="fa-solid fa-plus"></i> 新增进场计划
+                            </button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>计划编号</th>
+                                        <th>委托单号</th>
+                                        <th>工程名称</th>
+                                        <th>计划时间</th>
+                                        <th>检测人员</th>
+                                        <th>计划检测数量</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>JH-20260110-01</td>
+                                        <td>WFS2026-001</td>
+                                        <td>市政道路路基检测</td>
+                                        <td>2026-01-10 至 2026-01-12</td>
+                                        <td>张伟, 李明, 王强</td>
+                                        <td>3 组</td>
+                                        <td><span class="badge badge-info">待执行</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">详情</button>
+                                            <button class="btn btn-sm btn-secondary">通知</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>JH-20260108-02</td>
+                                        <td>XC-20260106-02</td>
+                                        <td>杨梅河整治工程</td>
+                                        <td>2026-01-08 至 2026-01-09</td>
+                                        <td>赵六, 孙七</td>
+                                        <td>1 组</td>
+                                        <td><span class="badge badge-success">执行中</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">详情</button>
+                                            <button class="btn btn-sm btn-secondary">进度</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Plan Modal -->
+    <div class="modal-overlay" id="addPlanModal">
+        <div class="modal-content" style="width: 600px;">
+            <div class="modal-header">
+                <div class="modal-title">新增进场计划</div>
+                <div class="modal-close" onclick="closeModal('addPlanModal')">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">关联委托单 <span style="color: red;">*</span></label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" class="form-control" id="selectedEntrustment" placeholder="请选择委托单..."
+                            readonly onclick="showModal('selectEntrustmentModal')" style="cursor: pointer;">
+                        <button class="btn btn-secondary" type="button"
+                            onclick="showModal('selectEntrustmentModal')">选择</button>
+                    </div>
+                    <input type="hidden" id="selectedEntrustmentId">
+                </div>
+
+                <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="form-group">
+                        <label class="form-label">计划开始日期 <span style="color: red;">*</span></label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">计划结束日期 <span style="color: red;">*</span></label>
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">检测人员 <span style="color: red;">*</span></label>
+                    <div
+                        style="border: 1px solid #ddd; padding: 10px; border-radius: 4px; max-height: 100px; overflow-y: auto;">
+                        <label style="display: inline-block; margin-right: 15px; cursor: pointer;"><input
+                                type="checkbox"> 张伟 (高工)</label>
+                        <label style="display: inline-block; margin-right: 15px; cursor: pointer;"><input
+                                type="checkbox"> 李明 (工程师)</label>
+                        <label style="display: inline-block; margin-right: 15px; cursor: pointer;"><input
+                                type="checkbox"> 王强 (工程师)</label>
+                        <label style="display: inline-block; margin-right: 15px; cursor: pointer;"><input
+                                type="checkbox"> 赵六 (助工)</label>
+                        <label style="display: inline-block; margin-right: 15px; cursor: pointer;"><input
+                                type="checkbox"> 孙七 (技术员)</label>
+                    </div>
+                </div>
+
+                <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="form-group">
+                        <label class="form-label">计划检测数量</label>
+                        <input type="text" class="form-control" placeholder="如：3组 / 15根">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">关联检测方案</label>
+                        <select class="form-control">
+                            <option value="">-- 可选 --</option>
+                            <option>大桥西引桥检测实施方案.pdf</option>
+                            <option>沧江泵站地基检测方案_v1.pdf</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">备注</label>
+                    <textarea class="form-control" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addPlanModal')">取消</button>
+                <button class="btn btn-primary" onclick="alert('计划已创建'); closeModal('addPlanModal')">确认新建</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Select Entrustment Modal -->
+    <div class="modal-overlay" id="selectEntrustmentModal">
+        <div class="modal-content" style="width: 700px;">
+            <div class="modal-header">
+                <div class="modal-title">选择委托单</div>
+                <div class="modal-close" onclick="closeModal('selectEntrustmentModal')">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="search-box mb-3" style="position: relative;">
+                    <i class="fa-solid fa-search" style="position: absolute; left: 10px; top: 10px; color: #999;"></i>
+                    <input type="text" class="form-control" id="entrustmentSearchInput"
+                        placeholder="请输入委托单号或工程名称进行搜索..." style="padding-left: 32px;" onkeyup="filterEntrustments()">
+                </div>
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover" id="entrustmentTable">
+                        <thead>
+                            <tr>
+                                <th>委托单号</th>
+                                <th>工程名称</th>
+                                <th>检测项目</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Mock Data -->
+                            <tr>
+                                <td>WFS2026-001</td>
+                                <td>市政道路路基检测</td>
+                                <td>低应变法试验</td>
+                                <td><button class="btn btn-sm btn-primary"
+                                        onclick="selectEntrustment('WFS2026-001', '市政道路路基检测', '低应变法试验')">选择</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>XC-20260107-03</td>
+                                <td>沧江泵站地基承载力检测</td>
+                                <td>地基承载力检测</td>
+                                <td><button class="btn btn-sm btn-primary"
+                                        onclick="selectEntrustment('XC-20260107-03', '沧江泵站地基承载力检测', '地基承载力检测')">选择</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>XC-20260106-02</td>
+                                <td>杨梅河整治工程</td>
+                                <td>混凝土强度检测</td>
+                                <td><button class="btn btn-sm btn-primary"
+                                        onclick="selectEntrustment('XC-20260106-02', '杨梅河整治工程', '混凝土强度检测')">选择</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>JH-20260112-05</td>
+                                <td>高明大桥西引桥检测</td>
+                                <td>钢筋保护层厚度检测</td>
+                                <td><button class="btn btn-sm btn-primary"
+                                        onclick="selectEntrustment('JH-20260112-05', '高明大桥西引桥检测', '钢筋保护层厚度检测')">选择</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function selectEntrustment(id, projectName, testProject) {
+            document.getElementById('selectedEntrustment').value = id + ' (' + projectName + ' - ' + testProject + ')';
+            document.getElementById('selectedEntrustmentId').value = id;
+            closeModal('selectEntrustmentModal');
+        }
+
+        function filterEntrustments() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("entrustmentSearchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("entrustmentTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) { // Start from 1 to skip header
+                var match = false;
+                // Check ID (0), Project Name (1), and Test Project (2)
+                var tdId = tr[i].getElementsByTagName("td")[0];
+                var tdName = tr[i].getElementsByTagName("td")[1];
+                var tdTest = tr[i].getElementsByTagName("td")[2];
+
+                if (tdId || tdName || tdTest) {
+                    if (tdId) {
+                        txtValue = tdId.textContent || tdId.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) match = true;
+                    }
+                    if (!match && tdName) {
+                        txtValue = tdName.textContent || tdName.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) match = true;
+                    }
+                    if (!match && tdTest) {
+                        txtValue = tdTest.textContent || tdTest.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) match = true;
+                    }
+                }
+
+                if (match) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

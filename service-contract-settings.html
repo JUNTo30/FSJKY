@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务单位、合同、服务费设置 - 高明检测系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <style>
+        /* Inner Layout Reuse */
+        .inner-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+            overflow: hidden;
+        }
+
+        .inner-sidebar {
+            width: 240px;
+            background-color: #fafbfc;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-list {
+            padding: 16px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: #e6f7ff;
+            color: #0060df;
+        }
+
+        .menu-item.active {
+            background-color: #e6f7ff;
+            color: #0060df;
+            font-weight: 600;
+        }
+
+        .inner-content {
+            flex: 1;
+            overflow-y: auto;
+            background: #f0f2f5;
+            padding: 24px;
+        }
+
+        /* Specific Styles for Settings Page */
+        .settings-tabs {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fff;
+            padding: 0 16px;
+        }
+
+        .settings-tab {
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .settings-tab:hover {
+            color: #0060df;
+        }
+
+        .settings-tab.active {
+            color: #0060df;
+            border-bottom: 2px solid #0060df;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container-vertical">
+        <header class="main-header">
+            <div class="header-left">
+                <a href="dashboard.html" class="brand-logo">
+                    <i class="fa-solid fa-water"></i>
+                    高明检测管理系统
+                </a>
+                <nav class="main-nav">
+                    <a href="dashboard.html" class="nav-item-top">工作台</a>
+                    <a href="entrustment.html" class="nav-item-top active">委托管理</a>
+                    <a href="indoor-allocation.html" class="nav-item-top">任务分配</a>
+                    <a href="sample.html" class="nav-item-top">检测前准备</a>
+                    <a href="indoor-test.html" class="nav-item-top">室内检测</a>
+                    <a href="site-execution.html" class="nav-item-top">现场检测</a>
+                    <a href="reports.html" class="nav-item-top">报告管理</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="user-dropdown">
+                    <div class="avatar">A</div>
+                    <span>管理员</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="inner-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="inner-sidebar">
+                <div style="padding: 16px 16px 8px 16px; font-weight: 600; font-size: 14px; color: #999;">
+                    委托类别
+                </div>
+                <div class="menu-list">
+                    <a href="entrustment.html" class="menu-item">
+                        <i class="fa-solid fa-flask" style="width: 24px;"></i> 室内委托
+                    </a>
+                    <a href="site-entrustment.html" class="menu-item">
+                        <i class="fa-solid fa-truck-field" style="width: 24px;"></i> 现场委托
+                    </a>
+                    <a href="service-contract-settings.html" class="menu-item active">
+                        <i class="fa-solid fa-file-contract" style="width: 24px;"></i> 服务单位、合同、服务费设置
+                    </a>
+                    <a href="charging-standards.html" class="menu-item">
+                        <i class="fa-solid fa-file-invoice-dollar" style="width: 24px;"></i> 收费标准
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="inner-content">
+                <div style="max-width: 1400px; margin: 0 auto;">
+                    <div class="page-header mb-4"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="page-title">服务单位、合同、服务费设置</h2>
+                        <button class="btn btn-primary">
+                            <i class="fa-solid fa-plus" style="margin-right: 8px;"></i> 新增记录
+                        </button>
+                    </div>
+
+                    <div class="table-card">
+                        <!-- Settings Tabs -->
+                        <div class="settings-tabs">
+                            <div class="settings-tab">服务费折扣率</div>
+                            <div class="settings-tab">单桩抗压静载</div>
+                            <div class="settings-tab">地基平板试验</div>
+                            <div class="settings-tab">桩钻芯法检验</div>
+                            <div class="settings-tab">基础锚杆抗拔</div>
+                            <div class="settings-tab">支护锚杆验收</div>
+                            <div class="settings-tab">土钉验收试验</div>
+                            <div class="settings-tab">标准贯入试验</div>
+                            <div class="settings-tab">动力触探试验</div>
+                            <div class="settings-tab">单桩水平静载</div>
+                            <div class="settings-tab active">低应变法检测</div>
+                            <!-- Default active based on user task context though usually first is active -->
+                        </div>
+
+                        <!-- Data Table -->
+                        <div class="table-responsive" style="padding: 0;">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">序号</th>
+                                        <th>合同编码</th>
+                                        <th>服务单位</th>
+                                        <th>合同价</th>
+                                        <th>保底里</th>
+                                        <th>签订日期</th>
+                                        <th>合同期限</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>WJZ2026-001</td>
+                                        <td>广东建工集团有限公司</td>
+                                        <td>¥500,000</td>
+                                        <td>¥50,000</td>
+                                        <td>2025-12-01</td>
+                                        <td>2026-12-01</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">编辑</button>
+                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>WJZ2026-015</td>
+                                        <td>恒大地产集团</td>
+                                        <td>¥300,000</td>
+                                        <td>¥30,000</td>
+                                        <td>2026-01-10</td>
+                                        <td>2027-01-10</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">编辑</button>
+                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>WJZ2026-022</td>
+                                        <td>万科企业股份有限公司</td>
+                                        <td>¥450,000</td>
+                                        <td>¥45,000</td>
+                                        <td>2026-01-15</td>
+                                        <td>2027-01-15</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">编辑</button>
+                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching logic
+        const tabs = document.querySelectorAll('.settings-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // In a real app, this would filter the table data.
+                // For now, we just switch the visual state.
+            });
+        });
+    </script>
+</body>
+
+</html>
