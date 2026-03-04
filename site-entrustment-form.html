@@ -9699,10 +9699,10 @@
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <a href="site-entrustment.html" class="btn btn-sm btn-secondary"><i
                                 class="fa-solid fa-arrow-left"></i> 返回列表</a>
-                        <h2 class="page-title" style="margin: 0;">现场项目委托登记</h2>
+                        <h2 class="page-title" id="pageTitle" style="margin: 0;">现场项目委托登记</h2>
                     </div>
                     <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-primary" onclick="alert('现场项目委托已提交！')">提交委托</button>
+                        <button class="btn btn-primary" id="submitBtn" onclick="handleFormSubmit()">提交委托</button>
                     </div>
                 </div>
 
@@ -9710,7 +9710,7 @@
                 <div class="section-card">
                     <div class="section-header">
                         <div class="section-title">工程基本信息</div>
-                        <div style="font-size: 13px; color: #999;">委托单号：<span
+                        <div style="font-size: 13px; color: #999;">委托单号：<span id="entrustmentId"
                                 style="color: #333; font-weight: 600;">WFS2026-001</span> (自动生成)</div>
                     </div>
                     <div class="form-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px;">
@@ -10192,8 +10192,26 @@
                     });
                 }
 
-                // Handle 'low_strain' specific fields
+                // Handle edit mode
                 const urlParams = new URLSearchParams(window.location.search);
+                const editMode = urlParams.get('mode') === 'edit';
+                const editId = urlParams.get('id');
+
+                if (editMode) {
+                    // Update page title
+                    const pageTitle = document.getElementById('pageTitle');
+                    if (pageTitle) pageTitle.textContent = '委托更改';
+                    // Update submit button
+                    const submitBtn = document.getElementById('submitBtn');
+                    if (submitBtn) submitBtn.textContent = '保存更改';
+                    // Show editing entrustment ID
+                    const idSpan = document.getElementById('entrustmentId');
+                    if (idSpan && editId) idSpan.textContent = editId;
+                    // Update document title
+                    document.title = '委托更改 - 高明检测系统';
+                }
+
+                // Handle 'low_strain' specific fields
                 const projectType = urlParams.get('type');
 
                 if (projectType === 'low_strain') {
@@ -10400,6 +10418,18 @@
             }
 
             // (Previous addSiteComponentRow function removed or kept as needed, but strictly we overlap with the new one for this form)
+
+            // Submit handler for both new and edit mode
+            function handleFormSubmit() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const editMode = urlParams.get('mode') === 'edit';
+                const editId = urlParams.get('id');
+                if (editMode) {
+                    alert('\u59d4\u6258\u66f4\u6539\u5df2\u4fdd\u5b58\uff01\u59d4\u6258\u7f16\u53f7\uff1a' + (editId || ''));
+                } else {
+                    alert('\u73b0\u573a\u9879\u76ee\u59d4\u6258\u5df2\u63d0\u4ea4\uff01');
+                }
+            }
 
         </script>
 </body>

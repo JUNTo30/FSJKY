@@ -151,7 +151,6 @@
                     <div class="table-card">
                         <!-- Settings Tabs -->
                         <div class="settings-tabs">
-                            <div class="settings-tab">服务费折扣率</div>
                             <div class="settings-tab">单桩抗压静载</div>
                             <div class="settings-tab">地基平板试验</div>
                             <div class="settings-tab">桩钻芯法检验</div>
@@ -177,6 +176,7 @@
                                         <th>保底里</th>
                                         <th>签订日期</th>
                                         <th>合同期限</th>
+                                        <th>备注</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -189,9 +189,11 @@
                                         <td>¥50,000</td>
                                         <td>2025-12-01</td>
                                         <td>2026-12-01</td>
+                                        <td>荷城内</td>
                                         <td>
                                             <button class="btn btn-sm btn-secondary">编辑</button>
-                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                            <button class="btn btn-sm btn-secondary text-danger"
+                                                onclick="deleteRow(this)">删除</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -202,9 +204,11 @@
                                         <td>¥30,000</td>
                                         <td>2026-01-10</td>
                                         <td>2027-01-10</td>
+                                        <td>荷城外</td>
                                         <td>
                                             <button class="btn btn-sm btn-secondary">编辑</button>
-                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                            <button class="btn btn-sm btn-secondary text-danger"
+                                                onclick="deleteRow(this)">删除</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -215,9 +219,11 @@
                                         <td>¥45,000</td>
                                         <td>2026-01-15</td>
                                         <td>2027-01-15</td>
+                                        <td>荷城内</td>
                                         <td>
                                             <button class="btn btn-sm btn-secondary">编辑</button>
-                                            <button class="btn btn-sm btn-secondary text-danger">删除</button>
+                                            <button class="btn btn-sm btn-secondary text-danger"
+                                                onclick="deleteRow(this)">删除</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -236,10 +242,14 @@
             tab.addEventListener('click', () => {
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                // In a real app, this would filter the table data.
-                // For now, we just switch the visual state.
             });
         });
+
+        function deleteRow(btn) {
+            if (confirm('当前进行删除操作，是否删除？')) {
+                btn.closest('tr').remove();
+            }
+        }
     </script>
 </body>
 

@@ -9704,27 +9704,67 @@
                     </div>
 
                     <div class="table-card">
-                        <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 16px;">
-                            <!-- Tabs -->
-                            <div class="tabs"
-                                style="border: none; padding: 4px; background: #f0f2f5; display: inline-flex; border-radius: 6px; gap: 4px; width: 100%;">
-                                <div class="tab active"
-                                    style="border-bottom: none; background: white; border-radius: 4px; padding: 6px 16px; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); color: #0060df; font-weight: 600;">
-                                    所有项目</div>
-                                <div class="tab"
-                                    style="border-bottom: none; border-radius: 4px; padding: 6px 16px; font-size: 14px; color: #666;">
-                                    待受理 <span class="badge badge-error"
-                                        style="font-size: 10px; padding: 2px 6px; margin-left: 4px;">1</span></div>
-                                <div class="tab"
-                                    style="border-bottom: none; border-radius: 4px; padding: 6px 16px; font-size: 14px; color: #666;">
-                                    项目更改</div>
+                        <div class="card-header"
+                            style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 24px;">
+                            <!-- Search Filter Bar -->
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <label
+                                        style="font-size: 13px; color: #666; white-space: nowrap; min-width: 56px;">委托编号</label>
+                                    <input type="text" id="filter-id" placeholder="请输入委托编号"
+                                        style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <label
+                                        style="font-size: 13px; color: #666; white-space: nowrap; min-width: 56px;">工程名称</label>
+                                    <input type="text" id="filter-name" placeholder="请输入工程名称"
+                                        style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <label
+                                        style="font-size: 13px; color: #666; white-space: nowrap; min-width: 56px;">检测项目</label>
+                                    <input type="text" id="filter-project" placeholder="请输入检测项目"
+                                        style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <label
+                                        style="font-size: 13px; color: #666; white-space: nowrap; min-width: 56px;">检测参数</label>
+                                    <input type="text" id="filter-param" placeholder="请输入检测参数"
+                                        style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <label
+                                        style="font-size: 13px; color: #666; white-space: nowrap; min-width: 56px;">委托日期</label>
+                                    <input type="date" id="filter-date-from"
+                                        style="flex: 1; padding: 6px 8px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                    <span style="color: #999; font-size: 13px;">~</span>
+                                    <input type="date" id="filter-date-to"
+                                        style="flex: 1; padding: 6px 8px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <label
+                                        style="font-size: 13px; color: #666; white-space: nowrap; min-width: 56px;">状态</label>
+                                    <select id="filter-status"
+                                        style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none; background: white;">
+                                        <option value="">全部</option>
+                                        <option value="已提交">已提交</option>
+                                        <option value="已受理">已受理</option>
+                                        <option value="草稿">草稿</option>
+                                    </select>
+                                </div>
                             </div>
-
-                            <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                 <div class="card-title">委托记录列表</div>
-                                <div class="search-box">
-                                    <i class="fa-solid fa-search" style="color: #999; margin-right: 8px;"></i>
-                                    <input type="text" placeholder="搜索项目名称..." style="border: none; outline: none;">
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-primary btn-sm" onclick="applyFilters()"
+                                        style="padding: 6px 16px; font-size: 13px;">
+                                        <i class="fa-solid fa-search" style="margin-right: 4px;"></i>检索
+                                    </button>
+                                    <button class="btn btn-secondary btn-sm" onclick="resetFilters()"
+                                        style="padding: 6px 16px; font-size: 13px;">
+                                        重置
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -9752,9 +9792,11 @@
                                         <td>2026-01-11</td>
                                         <td><span class="badge badge-warning">已提交</span></td>
                                         <td>
+                                            <button class="btn btn-sm btn-secondary">详情</button>
                                             <button class="btn btn-sm btn-primary"
                                                 onclick="acceptSiteEntrustment(this)">受理</button>
-                                            <button class="btn btn-sm btn-secondary">详情</button>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-entrustment-form.html?mode=edit&id=WFS2026-001'">委托更改</button>
                                         </td>
                                     </tr>
                                     <tr data-status="accepted">
@@ -9768,6 +9810,8 @@
                                         <td><button class="btn btn-sm btn-secondary">详情</button>
                                             <button class="btn btn-sm btn-secondary"
                                                 onclick="openPrintModal('PJ-20260108-01')">打印</button>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-entrustment-form.html?mode=edit&id=PJ-20260108-01'">委托更改</button>
                                         </td>
                                     </tr>
                                     <tr data-status="draft">
@@ -9782,6 +9826,8 @@
                                             <button class="btn btn-sm btn-secondary">详情</button>
                                             <button class="btn btn-sm btn-primary"
                                                 onclick="acceptSiteEntrustment(this)">提交</button>
+                                            <button class="btn btn-sm btn-secondary"
+                                                onclick="location.href='site-entrustment-form.html?mode=edit&id=PJ-20260110-02'">委托更改</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -10224,13 +10270,58 @@
 
                 // Update actions
                 const actionCell = row.lastElementChild;
+                const rowId = row.querySelector('td').textContent;
                 actionCell.innerHTML = `
                    <button class="btn btn-sm btn-secondary">详情</button>
+                   <button class="btn btn-sm btn-secondary" onclick="location.href='site-entrustment-form.html?mode=edit&id=${rowId}'">委托更改</button>
                 `;
 
                 row.setAttribute('data-status', 'accepted');
                 alert('受理成功！');
             }
+        }
+
+        function applyFilters() {
+            const filterId = document.getElementById('filter-id').value.trim().toLowerCase();
+            const filterName = document.getElementById('filter-name').value.trim().toLowerCase();
+            const filterProject = document.getElementById('filter-project').value.trim().toLowerCase();
+            const filterParam = document.getElementById('filter-param').value.trim().toLowerCase();
+            const filterDateFrom = document.getElementById('filter-date-from').value;
+            const filterDateTo = document.getElementById('filter-date-to').value;
+            const filterStatus = document.getElementById('filter-status').value;
+
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const id = cells[0] ? cells[0].textContent.toLowerCase() : '';
+                const name = cells[1] ? cells[1].textContent.toLowerCase() : '';
+                const project = cells[2] ? cells[2].textContent.toLowerCase() : '';
+                const param = cells[3] ? cells[3].textContent.toLowerCase() : '';
+                const date = cells[5] ? cells[5].textContent.trim() : '';
+                const status = cells[6] ? cells[6].textContent.trim() : '';
+
+                let show = true;
+                if (filterId && !id.includes(filterId)) show = false;
+                if (filterName && !name.includes(filterName)) show = false;
+                if (filterProject && !project.includes(filterProject)) show = false;
+                if (filterParam && !param.includes(filterParam)) show = false;
+                if (filterDateFrom && date < filterDateFrom) show = false;
+                if (filterDateTo && date > filterDateTo) show = false;
+                if (filterStatus && !status.includes(filterStatus)) show = false;
+
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-id').value = '';
+            document.getElementById('filter-name').value = '';
+            document.getElementById('filter-project').value = '';
+            document.getElementById('filter-param').value = '';
+            document.getElementById('filter-date-from').value = '';
+            document.getElementById('filter-date-to').value = '';
+            document.getElementById('filter-status').value = '';
+            document.querySelectorAll('tbody tr').forEach(row => row.style.display = '');
         }
     </script>
 </body>

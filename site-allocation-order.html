@@ -9590,11 +9590,7 @@
             unicode-range: u+f041, u+f047, u+f065-f066, u+f07d-f07e, u+f080, u+f08b, u+f08e, u+f090, u+f09a, u+f0ac, u+f0ae, u+f0b2, u+f0d0, u+f0d6, u+f0e4, u+f0ec, u+f10a-f10b, u+f123, u+f13e, u+f148-f149, u+f14c, u+f156, u+f15e, u+f160-f161, u+f163, u+f175-f178, u+f195, u+f1f8, u+f219, u+f27a
         }
     </style>
-    <style>
-        .task-list {
-            /* Styles for task items */
-        }
-    </style>
+
 </head>
 
 <body>
@@ -9651,80 +9647,163 @@
             <!-- Main Content -->
             <main class="inner-content">
                 <div style="max-width: 100%; margin: 0 auto;">
-                    <div class="mb-4">
-                        <h2 class="page-title">现场任务下达</h2>
-                        <p class="text-muted">指定项目负责人，启动现场检测流程</p>
+                    <div class="page-header mb-4"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2 class="page-title">现场任务下达</h2>
+                            <p class="text-muted" style="font-size: 13px; margin-top: 4px;">指定检测科室及负责人，启动现场检测流程</p>
+                        </div>
                     </div>
 
-                    <!-- Col 1: Task Order (Assign Project Leader) -->
-                    <div class="section-card"
-                        style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <div class="card-header"
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
-                            <div>
-                                <div class="card-title" style="font-size: 16px; font-weight: 600;">待下达任务列表
-                                </div>
-                                <div style="font-size: 12px; color: #999;">待指定科室负责人的委托单</div>
+                    <!-- 检索栏 -->
+                    <div class="table-card" style="margin-bottom: 16px;">
+                        <div
+                            style="padding: 16px 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">委托编号</label>
+                                <input type="text" id="ao-filter-id" placeholder="请输入委托编号"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
                             </div>
-                            <span class="badge badge-warning">3 待下达</span>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">工程名称</label>
+                                <input type="text" id="ao-filter-name" placeholder="请输入工程名称"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">检测项目</label>
+                                <input type="text" id="ao-filter-project" placeholder="请输入检测项目"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">检测科室</label>
+                                <select id="ao-filter-dept"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;background:white;">
+                                    <option value="">全部</option>
+                                    <option>地基室</option>
+                                    <option>结构室</option>
+                                </select>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">委托日期</label>
+                                <input type="date" id="ao-filter-date-from"
+                                    style="flex:1;padding:6px 8px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                                <span style="color:#999;font-size:13px;">~</span>
+                                <input type="date" id="ao-filter-date-to"
+                                    style="flex:1;padding:6px 8px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">状态</label>
+                                <select id="ao-filter-status"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;background:white;">
+                                    <option value="">全部</option>
+                                    <option value="待下达">待下达</option>
+                                    <option value="已下达">已下达</option>
+                                </select>
+                            </div>
                         </div>
+                        <div style="padding:0 24px 16px;display:flex;justify-content:flex-end;gap:8px;">
+                            <button class="btn btn-primary btn-sm" onclick="aoApplyFilters()"
+                                style="padding:6px 16px;font-size:13px;">
+                                <i class="fa-solid fa-search" style="margin-right:4px;"></i>检索
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="aoResetFilters()"
+                                style="padding:6px 16px;font-size:13px;">重置</button>
+                        </div>
+                    </div>
 
-                        <div class="task-list">
-                            <!-- Item 1 -->
-                            <div class="task-item"
-                                style="background: #f9fafb; padding: 16px; border-radius: 6px; margin-bottom: 16px; border: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-                                <div style="flex: 1;">
-                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                                        <div style="font-weight: 600; font-size: 16px;">WFS2026-001</div>
-                                        <span class="badge">低应变法检测</span>
-                                    </div>
-                                    <div style="font-size: 14px; margin-bottom: 4px;">市政道路路基检测</div>
-                                    <div style="font-size: 12px; color: #666;"><i class="fa-solid fa-location-dot"></i>
-                                        高明大桥西侧</div>
-                                </div>
-
-                                <div style="display: flex; gap: 16px; align-items: center; min-width: 300px;">
-                                    <div style="flex: 1;">
-                                        <label
-                                            style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">指定科室负责人</label>
-                                        <select class="form-control" style="width: 100%;">
-                                            <option value="">请选择...</option>
-                                            <option>张伟 (高工)</option>
-                                            <option>李明 (工程师)</option>
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-primary" style="align-self: flex-end;"
-                                        onclick="alert('已下达给负责人')">确认下达</button>
-                                </div>
-                            </div>
-
-                            <!-- Item 2 -->
-                            <div class="task-item"
-                                style="background: #f9fafb; padding: 16px; border-radius: 6px; margin-bottom: 16px; border: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-                                <div style="flex: 1;">
-                                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                                        <div style="font-weight: 600; font-size: 16px;">WFS2026-002</div>
-                                        <span class="badge">地基基础</span>
-                                    </div>
-                                    <div style="font-size: 14px; margin-bottom: 4px;">杨梅河整治工程二期</div>
-                                    <div style="font-size: 12px; color: #666;"><i class="fa-solid fa-location-dot"></i>
-                                        杨梅河中段</div>
-                                </div>
-
-                                <div style="display: flex; gap: 16px; align-items: center; min-width: 300px;">
-                                    <div style="flex: 1;">
-                                        <label
-                                            style="font-size: 12px; color: #666; display: block; margin-bottom: 4px;">指定科室负责人</label>
-                                        <select class="form-control" style="width: 100%;">
-                                            <option value="">请选择...</option>
-                                            <option>张伟 (高工)</option>
-                                            <option>李明 (工程师)</option>
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-primary" style="align-self: flex-end;"
-                                        onclick="alert('已下达给负责人')">确认下达</button>
-                                </div>
-                            </div>
+                    <!-- 台账列表 -->
+                    <div class="table-card">
+                        <div class="card-header">
+                            <div class="card-title">委托下达台账</div>
+                            <span class="badge badge-warning" id="ao-pending-badge">2 待下达</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table" id="ao-table">
+                                <thead>
+                                    <tr>
+                                        <th>委托编号</th>
+                                        <th>工程名称</th>
+                                        <th>检测项目</th>
+                                        <th>检测地点</th>
+                                        <th>委托日期</th>
+                                        <th>状态</th>
+                                        <th>指定检测科室</th>
+                                        <th>指定科室负责人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ao-tbody">
+                                    <tr data-status="待下达">
+                                        <td>WFS2026-001</td>
+                                        <td>市政道路路基检测</td>
+                                        <td>低应变法检测</td>
+                                        <td>高明大桥西侧</td>
+                                        <td>2026-01-11</td>
+                                        <td><span class="badge badge-warning">待下达</span></td>
+                                        <td>
+                                            <select class="form-control"
+                                                style="width:90px;padding:4px 6px;font-size:13px;">
+                                                <option value="">请选择</option>
+                                                <option>地基室</option>
+                                                <option>结构室</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control"
+                                                style="width:110px;padding:4px 6px;font-size:13px;">
+                                                <option value="">请选择</option>
+                                                <option>张伟 (高工)</option>
+                                                <option>李明 (工程师)</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary"
+                                                onclick="aoConfirm(this)">确认下达</button>
+                                        </td>
+                                    </tr>
+                                    <tr data-status="待下达">
+                                        <td>WFS2026-002</td>
+                                        <td>杨梅河整治工程二期</td>
+                                        <td>地基基础检测</td>
+                                        <td>杨梅河中段</td>
+                                        <td>2026-01-12</td>
+                                        <td><span class="badge badge-warning">待下达</span></td>
+                                        <td>
+                                            <select class="form-control"
+                                                style="width:90px;padding:4px 6px;font-size:13px;">
+                                                <option value="">请选择</option>
+                                                <option>地基室</option>
+                                                <option>结构室</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control"
+                                                style="width:110px;padding:4px 6px;font-size:13px;">
+                                                <option value="">请选择</option>
+                                                <option>张伟 (高工)</option>
+                                                <option>李明 (工程师)</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary"
+                                                onclick="aoConfirm(this)">确认下达</button>
+                                        </td>
+                                    </tr>
+                                    <tr data-status="已下达">
+                                        <td>PJ-20260108-01</td>
+                                        <td>高明大桥西引桥加固工程</td>
+                                        <td>桥梁动静载试验</td>
+                                        <td>高明大桥西侧</td>
+                                        <td>2026-01-08</td>
+                                        <td><span class="badge badge-success">已下达</span></td>
+                                        <td>结构室</td>
+                                        <td>张伟 (高工)</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">详情</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -9821,6 +9900,72 @@
             if (chartContainer) {
                 // Just for demo purposes, we do nothing or could add a simple CSS bar chart
             }
+        }
+
+        function aoApplyFilters() {
+            const fId = document.getElementById('ao-filter-id').value.trim().toLowerCase();
+            const fName = document.getElementById('ao-filter-name').value.trim().toLowerCase();
+            const fProject = document.getElementById('ao-filter-project').value.trim().toLowerCase();
+            const fDept = document.getElementById('ao-filter-dept').value;
+            const fDateFrom = document.getElementById('ao-filter-date-from').value;
+            const fDateTo = document.getElementById('ao-filter-date-to').value;
+            const fStatus = document.getElementById('ao-filter-status').value;
+
+            document.querySelectorAll('#ao-tbody tr').forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const id = cells[0] ? cells[0].textContent.toLowerCase() : '';
+                const name = cells[1] ? cells[1].textContent.toLowerCase() : '';
+                const proj = cells[2] ? cells[2].textContent.toLowerCase() : '';
+                const date = cells[4] ? cells[4].textContent.trim() : '';
+                const status = cells[5] ? cells[5].textContent.trim() : '';
+                // dept from select or text
+                const deptCell = cells[6];
+                const deptVal = deptCell ? (deptCell.querySelector('select') ? deptCell.querySelector('select').value : deptCell.textContent.trim()) : '';
+
+                let show = true;
+                if (fId && !id.includes(fId)) show = false;
+                if (fName && !name.includes(fName)) show = false;
+                if (fProject && !proj.includes(fProject)) show = false;
+                if (fDept && !deptVal.includes(fDept)) show = false;
+                if (fDateFrom && date < fDateFrom) show = false;
+                if (fDateTo && date > fDateTo) show = false;
+                if (fStatus && !status.includes(fStatus)) show = false;
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        function aoResetFilters() {
+            ['ao-filter-id', 'ao-filter-name', 'ao-filter-project', 'ao-filter-date-from', 'ao-filter-date-to'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('ao-filter-dept').value = '';
+            document.getElementById('ao-filter-status').value = '';
+            document.querySelectorAll('#ao-tbody tr').forEach(row => row.style.display = '');
+        }
+
+        function aoConfirm(btn) {
+            const row = btn.closest('tr');
+            const deptSel = row.querySelectorAll('select')[0];
+            const personSel = row.querySelectorAll('select')[1];
+            if (!deptSel.value || !personSel.value) {
+                alert('请先选择检测科室和科室负责人！');
+                return;
+            }
+            const dept = deptSel.value;
+            const person = personSel.value;
+            // Update status badge
+            const badge = row.querySelector('.badge');
+            badge.className = 'badge badge-success';
+            badge.textContent = '已下达';
+            row.setAttribute('data-status', '已下达');
+            // Replace selects with text
+            const deptTd = deptSel.closest('td');
+            deptTd.textContent = dept;
+            const personTd = personSel.closest('td');
+            personTd.textContent = person;
+            // Replace button
+            btn.outerHTML = '<button class="btn btn-sm btn-secondary">详情</button>';
+            alert('任务已下达！科室：' + dept + '，负责人：' + person);
         }
 
         function deleteRow(btn) {

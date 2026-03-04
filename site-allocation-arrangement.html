@@ -9646,118 +9646,162 @@
             <!-- Main Content -->
             <main class="inner-content">
                 <div style="max-width: 100%; margin: 0 auto;">
-                    <div class="mb-4">
-                        <h2 class="page-title">现场工作安排</h2>
-                        <p class="text-muted">为已下达的任务分派具体的检测人员</p>
+                    <div class="page-header mb-4"
+                        style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2 class="page-title">现场工作安排</h2>
+                            <p class="text-muted" style="font-size: 13px; margin-top: 4px;">为已下达的任务分派具体的检测人员</p>
+                        </div>
                     </div>
 
-                    <!-- Col 2: Work Arrangement (Assign Detectors) -->
-                    <div class="section-card"
-                        style="background: white; padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <div class="card-header"
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
-                            <div>
-                                <div class="card-title" style="font-size: 16px; font-weight: 600;">待安排任务列表
-                                </div>
-                                <div style="font-size: 12px; color: #999;">已定负责人，需安排具体执行人员</div>
+                    <!-- 检索栏 -->
+                    <div class="table-card" style="margin-bottom: 16px;">
+                        <div
+                            style="padding: 16px 24px; display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">委托编号</label>
+                                <input type="text" id="aa-filter-id" placeholder="请输入委托编号"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
                             </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">工程名称</label>
+                                <input type="text" id="aa-filter-name" placeholder="请输入工程名称"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">检测项目</label>
+                                <input type="text" id="aa-filter-project" placeholder="请输入检测项目"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">负责人</label>
+                                <input type="text" id="aa-filter-leader" placeholder="请输入负责人"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">委托日期</label>
+                                <input type="date" id="aa-filter-date-from"
+                                    style="flex:1;padding:6px 8px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                                <span style="color:#999;font-size:13px;">~</span>
+                                <input type="date" id="aa-filter-date-to"
+                                    style="flex:1;padding:6px 8px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;">
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <label style="font-size:13px;color:#666;white-space:nowrap;min-width:56px;">状态</label>
+                                <select id="aa-filter-status"
+                                    style="flex:1;padding:6px 10px;border:1px solid #d9d9d9;border-radius:4px;font-size:13px;outline:none;background:white;">
+                                    <option value="">全部</option>
+                                    <option value="待安排">待安排</option>
+                                    <option value="已安排">已安排</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="padding:0 24px 16px;display:flex;justify-content:flex-end;gap:8px;">
+                            <button class="btn btn-primary btn-sm" onclick="aaApplyFilters()"
+                                style="padding:6px 16px;font-size:13px;">
+                                <i class="fa-solid fa-search" style="margin-right:4px;"></i>检索
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="aaResetFilters()"
+                                style="padding:6px 16px;font-size:13px;">重置</button>
+                        </div>
+                    </div>
+
+                    <!-- 台账列表 -->
+                    <div class="table-card">
+                        <div class="card-header">
+                            <div class="card-title">工作安排台账</div>
                             <div style="display:flex; gap: 8px;">
-                                <span class="badge badge-info">2 待安排</span>
+                                <span class="badge badge-info" id="aa-pending-badge">2 待安排</span>
                                 <span class="badge badge-success">5 已安排</span>
                             </div>
                         </div>
-
-                        <div class="work-list">
-                            <!-- Work Item 1 -->
-                            <div class="work-item"
-                                style="border: 1px solid #e6f7ff; background: #f0f9ff; padding: 16px; border-radius: 6px; margin-bottom: 16px; display: flex; gap: 24px;">
-                                <div style="flex: 1;">
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <div style="font-weight: 600; color: #0060df; font-size: 16px;">WFS2026-001
-                                        </div>
-                                        <div
-                                            style="font-size: 12px; color: #666; background: white; padding: 2px 8px; border-radius: 10px; border: 1px solid #eee;">
-                                            负责人: 李明</div>
-                                    </div>
-                                    <div style="font-size: 14px; font-weight: 500; margin-bottom: 8px;">市政道路路基检测</div>
-                                    <div style="font-size: 12px; color: #666; margin-bottom: 8px;">
-                                        <i class="fa-solid fa-location-dot"></i> 高明大桥西侧 | <i
-                                            class="fa-regular fa-clock"></i> 2026-01-10
-                                    </div>
-                                </div>
-
-                                <div
-                                    style="flex: 1; background: white; padding: 12px; border-radius: 4px; border: 1px solid #bae7ff; display: flex; flex-direction: column;">
-                                    <div style="font-size: 12px; margin-bottom: 8px; font-weight: 500; color: #333;">
-                                        分配检测员 (多选):</div>
-                                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" checked style="margin-right: 4px;"> 张三
-                                        </label>
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" style="margin-right: 4px;"> 李四
-                                        </label>
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" style="margin-right: 4px;"> 王五
-                                        </label>
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" style="margin-right: 4px;"> 赵六
-                                        </label>
-                                    </div>
-                                    <div style="margin-top: auto; text-align: right;">
-                                        <button class="btn btn-sm btn-primary" onclick="alert('工作安排已保存')">保存安排</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Work Item 2 -->
-                            <div class="work-item"
-                                style="border: 1px solid #eee; background: white; padding: 16px; border-radius: 6px; margin-bottom: 16px; display: flex; gap: 24px;">
-                                <div style="flex: 1;">
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                                        <div style="font-weight: 600; font-size: 16px;">WFS2026-002</div>
-                                        <div
-                                            style="font-size: 12px; color: #666; background: #f5f5f5; padding: 2px 8px; border-radius: 10px;">
-                                            负责人: 张伟</div>
-                                    </div>
-                                    <div style="font-size: 14px; font-weight: 500; margin-bottom: 8px;">某小区基坑监测</div>
-                                    <div style="font-size: 12px; color: #666; margin-bottom: 8px;">
-                                        <i class="fa-solid fa-location-dot"></i> 某小区 | <i
-                                            class="fa-regular fa-clock"></i> 2026-01-09
-                                    </div>
-                                </div>
-
-                                <div
-                                    style="flex: 1; background: #fafafa; padding: 12px; border-radius: 4px; border: 1px solid #eee; display: flex; flex-direction: column;">
-                                    <div style="font-size: 12px; margin-bottom: 8px; font-weight: 500; color: #333;">
-                                        分配检测员 (多选):</div>
-                                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" style="margin-right: 4px;"> 张三
-                                        </label>
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" style="margin-right: 4px;"> 李四
-                                        </label>
-                                        <label
-                                            style="display: flex; align-items: center; font-size: 13px; cursor: pointer;">
-                                            <input type="checkbox" style="margin-right: 4px;"> 王五
-                                        </label>
-                                    </div>
-                                    <div style="margin-top: auto; text-align: right;">
-                                        <button class="btn btn-sm btn-primary" onclick="alert('工作安排已保存')">保存安排</button>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div class="table-responsive">
+                            <table class="table" id="aa-table">
+                                <thead>
+                                    <tr>
+                                        <th>委托编号</th>
+                                        <th>工程名称</th>
+                                        <th>检测项目</th>
+                                        <th>负责人</th>
+                                        <th>委托日期</th>
+                                        <th>状态</th>
+                                        <th>分配检测员 (多选)</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="aa-tbody">
+                                    <tr data-status="待安排">
+                                        <td>WFS2026-001</td>
+                                        <td>市政道路路基检测</td>
+                                        <td>低应变法检测</td>
+                                        <td>李明</td>
+                                        <td>2026-01-10</td>
+                                        <td><span class="badge badge-info">待安排</span></td>
+                                        <td>
+                                            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                                                <label
+                                                    style="display:flex;align-items:center;font-size:12px;cursor:pointer;">
+                                                    <input type="checkbox" style="margin-right:2px;">张三
+                                                </label>
+                                                <label
+                                                    style="display:flex;align-items:center;font-size:12px;cursor:pointer;">
+                                                    <input type="checkbox" style="margin-right:2px;">李四
+                                                </label>
+                                                <label
+                                                    style="display:flex;align-items:center;font-size:12px;cursor:pointer;">
+                                                    <input type="checkbox" style="margin-right:2px;">王五
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary"
+                                                onclick="aaSaveArrangement(this)">保存安排</button>
+                                        </td>
+                                    </tr>
+                                    <tr data-status="待安排">
+                                        <td>WFS2026-002</td>
+                                        <td>杨梅河整治工程二期</td>
+                                        <td>地基基础检测</td>
+                                        <td>张伟</td>
+                                        <td>2026-01-12</td>
+                                        <td><span class="badge badge-info">待安排</span></td>
+                                        <td>
+                                            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                                                <label
+                                                    style="display:flex;align-items:center;font-size:12px;cursor:pointer;">
+                                                    <input type="checkbox" style="margin-right:2px;">张三
+                                                </label>
+                                                <label
+                                                    style="display:flex;align-items:center;font-size:12px;cursor:pointer;">
+                                                    <input type="checkbox" style="margin-right:2px;">李四
+                                                </label>
+                                                <label
+                                                    style="display:flex;align-items:center;font-size:12px;cursor:pointer;">
+                                                    <input type="checkbox" style="margin-right:2px;">王五
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary"
+                                                onclick="aaSaveArrangement(this)">保存安排</button>
+                                        </td>
+                                    </tr>
+                                    <tr data-status="已安排">
+                                        <td>PJ-20260108-01</td>
+                                        <td>高明大桥西引桥加固工程</td>
+                                        <td>桥梁动静载试验</td>
+                                        <td>赵六</td>
+                                        <td>2026-01-08</td>
+                                        <td><span class="badge badge-success">已安排</span></td>
+                                        <td>张三, 李四</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-secondary">详情</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
                 </div>
             </main>
         </div>
@@ -9852,6 +9896,68 @@
             if (chartContainer) {
                 // Just for demo purposes, we do nothing or could add a simple CSS bar chart
             }
+        }
+
+        function aaApplyFilters() {
+            const fId = document.getElementById('aa-filter-id').value.trim().toLowerCase();
+            const fName = document.getElementById('aa-filter-name').value.trim().toLowerCase();
+            const fProject = document.getElementById('aa-filter-project').value.trim().toLowerCase();
+            const fLeader = document.getElementById('aa-filter-leader').value.trim().toLowerCase();
+            const fDateFrom = document.getElementById('aa-filter-date-from').value;
+            const fDateTo = document.getElementById('aa-filter-date-to').value;
+            const fStatus = document.getElementById('aa-filter-status').value;
+
+            document.querySelectorAll('#aa-tbody tr').forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const id = cells[0] ? cells[0].textContent.toLowerCase() : '';
+                const name = cells[1] ? cells[1].textContent.toLowerCase() : '';
+                const proj = cells[2] ? cells[2].textContent.toLowerCase() : '';
+                const leader = cells[3] ? cells[3].textContent.toLowerCase() : '';
+                const date = cells[4] ? cells[4].textContent.trim() : '';
+                const status = cells[5] ? cells[5].textContent.trim() : '';
+
+                let show = true;
+                if (fId && !id.includes(fId)) show = false;
+                if (fName && !name.includes(fName)) show = false;
+                if (fProject && !proj.includes(fProject)) show = false;
+                if (fLeader && !leader.includes(fLeader)) show = false;
+                if (fDateFrom && date < fDateFrom) show = false;
+                if (fDateTo && date > fDateTo) show = false;
+                if (fStatus && !status.includes(fStatus)) show = false;
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        function aaResetFilters() {
+            ['aa-filter-id', 'aa-filter-name', 'aa-filter-project', 'aa-filter-leader', 'aa-filter-date-from', 'aa-filter-date-to'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('aa-filter-status').value = '';
+            document.querySelectorAll('#aa-tbody tr').forEach(row => row.style.display = '');
+        }
+
+        function aaSaveArrangement(btn) {
+            const row = btn.closest('tr');
+            const checkboxes = row.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxes.length === 0) {
+                alert('请至少选择一名检测员！');
+                return;
+            }
+            const names = Array.from(checkboxes).map(cb => cb.closest('label').textContent.trim()).join(', ');
+
+            // Update status badge
+            const badge = row.querySelector('.badge');
+            badge.className = 'badge badge-success';
+            badge.textContent = '已安排';
+            row.setAttribute('data-status', '已安排');
+
+            // Replace orientation div with text
+            const tdArrangement = row.querySelectorAll('td')[6];
+            tdArrangement.textContent = names;
+
+            // Replace button
+            btn.outerHTML = '<button class="btn btn-sm btn-secondary">详情</button>';
+            alert('工作安排已保存！检测员：' + names);
         }
 
         function deleteRow(btn) {

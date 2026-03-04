@@ -9864,34 +9864,55 @@
 
             <!-- Main Content: Task List -->
             <main class="inner-content">
-                <div class="toolbar">
-                    <!-- Left: Tabs -->
-                    <div class="tabs">
-                        <div class="tab active">
-                            所有任务 <span
-                                style="font-size: 12px; background: #e6f7ff; padding: 0 6px; border-radius: 10px;">5</span>
+                <div class="toolbar-card"
+                    style="padding: 16px 24px; border-bottom: 1px solid var(--border-color); background: #fff;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label
+                                style="font-size: 13px; color: #666; white-space: nowrap; min-width: 60px;">委托编号</label>
+                            <input type="text" id="se-filter-id" placeholder="搜索委托编号"
+                                style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
                         </div>
-                        <div class="tab">
-                            今日待办 <span class="badge badge-warning" style="font-size: 10px; margin-left: 0;">2</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label
+                                style="font-size: 13px; color: #666; white-space: nowrap; min-width: 60px;">工程名称</label>
+                            <input type="text" id="se-filter-name" placeholder="搜索工程名称"
+                                style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
                         </div>
-                        <div class="tab">
-                            进行中 <span
-                                style="font-size: 12px; background: #eee; padding: 0 6px; border-radius: 10px;">1</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label
+                                style="font-size: 13px; color: #666; white-space: nowrap; min-width: 60px;">检测项目</label>
+                            <input type="text" id="se-filter-project" placeholder="搜索检测项目"
+                                style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
                         </div>
-                        <div class="tab">
-                            已完成 <span
-                                style="font-size: 12px; background: #f6ffed; padding: 0 6px; border-radius: 10px; color: #52c41a;">12</span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label
+                                style="font-size: 13px; color: #666; white-space: nowrap; min-width: 60px;">计划时间</label>
+                            <div style="display: flex; align-items: center; gap: 4px; flex: 1;">
+                                <input type="date" id="se-filter-date-from"
+                                    style="width: 130px; padding: 6px 8px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                                <span style="color: #999;">-</span>
+                                <input type="date" id="se-filter-date-to"
+                                    style="width: 130px; padding: 6px 8px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none;">
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Right: Search + Actions -->
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="search-box">
-                            <i class="fa-solid fa-search"></i>
-                            <input type="text" placeholder="搜索委托单号、工程名称...">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label
+                                style="font-size: 13px; color: #666; white-space: nowrap; min-width: 60px;">状态</label>
+                            <select id="se-filter-status"
+                                style="flex: 1; padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none; background: white;">
+                                <option value="">全部</option>
+                                <option value="进行中">进行中</option>
+                                <option value="未开始">未开始</option>
+                                <option value="已完成">已完成</option>
+                            </select>
                         </div>
-                        <button class="btn btn-primary btn-sm" onclick="alert('GPS定位成功：高明检测中心')"><i
-                                class="fa-solid fa-location-crosshairs"></i> 一键签到</button>
+                        <div style="display: flex; justify-content: flex-end; align-items: center; gap: 8px;">
+                            <button class="btn btn-primary btn-sm" onclick="seApplyFilters()"
+                                style="padding: 6px 16px;">检索</button>
+                            <button class="btn btn-secondary btn-sm" onclick="seResetFilters()"
+                                style="padding: 6px 16px;">重置</button>
+                        </div>
                     </div>
                 </div>
 
@@ -9901,11 +9922,11 @@
                             <thead style="position: sticky; top: 0; background: #f9fafb; z-index: 1;">
                                 <tr>
                                     <th style="width: 50px;"><input type="checkbox"></th>
-                                    <th>委托单号</th>
+                                    <th>委托编号</th>
                                     <th>工程名称</th>
                                     <th>计划时间</th>
                                     <th>检测地点</th>
-                                    <th>检测内容</th>
+                                    <th>检测项目</th>
                                     <th>状态</th>
                                     <th>工作量</th>
                                     <th style="min-width: 180px; text-align: right;">操作</th>
@@ -9942,8 +9963,8 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
+                                <tr style="cursor: pointer;" onclick="window.location.href='site-entry.html'">
+                                    <td onclick="event.stopPropagation()"><input type="checkbox"></td>
                                     <td>
                                         <div style="font-weight: 500;">RW-20260107-03</div>
                                         <div style="font-size: 12px; color: #999;">委托号: PJ-20260107-03</div>
@@ -9953,18 +9974,21 @@
                                     <td>沧江泵站项目部</td>
                                     <td>混凝土强度 (回弹法)</td>
                                     <td>
-                                        <span style="color: #faad14; font-size: 13px;">
-                                            <span class="status-dot" style="background: #faad14;"></span>待开始
+                                        <span style="color: #1890ff; font-size: 13px;">
+                                            <span class="status-dot" style="background: #1890ff;"></span>进行中
                                         </span>
                                     </td>
-                                    <td><span class="badge" style="background: #eee; color: #999;">--</span></td>
+                                    <td><span class="badge badge-warning">未登记</span></td>
                                     <td style="text-align: right;">
                                         <button class="btn btn-primary btn-sm"
-                                            onclick="window.location.href='site-entry.html'">
+                                            onclick="event.stopPropagation(); window.location.href='site-entry.html'">
                                             <i class="fa-solid fa-pen-to-square"></i> 录入
                                         </button>
-                                        <button class="btn btn-secondary btn-sm"
-                                            onclick="alert('任务尚未开始，请先签到')">签到</button>
+                                        <button class="btn btn-outline-primary btn-sm register-btn"
+                                            onclick="event.stopPropagation(); openWorkloadModal(this)"
+                                            style="border: 1px solid #1890ff; color: #1890ff; background: white;">
+                                            <i class="fa-solid fa-list-check"></i> 登记
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -10228,20 +10252,6 @@
                 });
             }
 
-            // Projects Handling - Search
-            const searchInput = document.getElementById('projectSearch');
-            if (searchInput) {
-                searchInput.addEventListener('input', (e) => {
-                    const term = e.target.value.toLowerCase();
-                    const rows = document.querySelectorAll('tbody tr');
-
-                    rows.forEach(row => {
-                        const text = row.innerText.toLowerCase();
-                        row.style.display = text.includes(term) ? '' : 'none';
-                    });
-                });
-            }
-
             // Initialize Charts (Mock) using simple DOM manipulation if needed
             // In a real app we would use Chart.js or ECharts
             renderCharts();
@@ -10285,6 +10295,44 @@
             if (chartContainer) {
                 // Just for demo purposes, we do nothing or could add a simple CSS bar chart
             }
+        }
+
+        function seApplyFilters() {
+            const fId = document.getElementById('se-filter-id').value.trim().toLowerCase();
+            const fName = document.getElementById('se-filter-name').value.trim().toLowerCase();
+            const fProject = document.getElementById('se-filter-project').value.trim().toLowerCase();
+            const fDateFrom = document.getElementById('se-filter-date-from').value;
+            const fDateTo = document.getElementById('se-filter-date-to').value;
+            const fStatus = document.getElementById('se-filter-status').value;
+
+            document.querySelectorAll('tbody tr').forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length < 7) return;
+
+                const textId = cells[1].innerText.toLowerCase();
+                const textName = cells[2].innerText.toLowerCase();
+                const textProject = cells[5].innerText.toLowerCase();
+                const textDate = cells[3].innerText.split(' ')[0].trim();
+                const textStatus = cells[6].innerText.trim();
+
+                let show = true;
+                if (fId && !textId.includes(fId)) show = false;
+                if (fName && !textName.includes(fName)) show = false;
+                if (fProject && !textProject.includes(fProject)) show = false;
+                if (fDateFrom && textDate < fDateFrom) show = false;
+                if (fDateTo && textDate > fDateTo) show = false;
+                if (fStatus && !textStatus.includes(fStatus)) show = false;
+
+                row.style.display = show ? '' : 'none';
+            });
+        }
+
+        function seResetFilters() {
+            ['se-filter-id', 'se-filter-name', 'se-filter-project', 'se-filter-date-from', 'se-filter-date-to'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('se-filter-status').value = '';
+            document.querySelectorAll('tbody tr').forEach(row => row.style.display = '');
         }
 
         function deleteRow(btn) {
