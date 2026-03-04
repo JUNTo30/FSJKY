@@ -18,6 +18,7 @@
                     高明检测管理系统
                 </a>
                 <nav class="main-nav">
+                    <a href="index.html" class="nav-item-top">业务流程</a>
                     <a href="dashboard.html" class="nav-item-top">工作台</a>
                     <a href="entrustment.html" class="nav-item-top">委托管理</a>
                     <a href="indoor-allocation.html" class="nav-item-top active">任务分配</a>
@@ -91,6 +92,7 @@
                                         <th>计划时间</th>
                                         <th>检测人员</th>
                                         <th>计划检测数量</th>
+                                        <th>单位</th>
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
@@ -102,7 +104,8 @@
                                         <td>市政道路路基检测</td>
                                         <td>2026-01-10 至 2026-01-12</td>
                                         <td>张伟, 李明, 王强</td>
-                                        <td>3 组</td>
+                                        <td>3</td>
+                                        <td>根</td>
                                         <td><span class="badge badge-info">待执行</span></td>
                                         <td>
                                             <button class="btn btn-sm btn-secondary">详情</button>
@@ -115,7 +118,8 @@
                                         <td>杨梅河整治工程</td>
                                         <td>2026-01-08 至 2026-01-09</td>
                                         <td>赵六, 孙七</td>
-                                        <td>1 组</td>
+                                        <td>1</td>
+                                        <td>根</td>
                                         <td><span class="badge badge-success">执行中</span></td>
                                         <td>
                                             <button class="btn btn-sm btn-secondary">详情</button>
@@ -181,28 +185,31 @@
                 <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
                     <div class="form-group">
                         <label class="form-label">计划检测数量</label>
-                        <input type="text" class="form-control" placeholder="如：3组 / 15根">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">关联检测方案</label>
-                        <select class="form-control">
-                            <option value="">-- 可选 --</option>
-                            <option>大桥西引桥检测实施方案.pdf</option>
-                            <option>沧江泵站地基检测方案_v1.pdf</option>
-                        </select>
+                        <input type="text" class="form-control" placeholder="如：3">
+                        <label class="form-label">单位</label>
+                        <input type="text" class="form-control" placeholder="如：根">
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="form-label">备注</label>
-                    <textarea class="form-control" rows="2"></textarea>
+                    <label class="form-label">关联检测方案</label>
+                    <select class="form-control">
+                        <option value="">-- 可选 --</option>
+                        <option>大桥西引桥检测实施方案.pdf</option>
+                        <option>沧江泵站地基检测方案_v1.pdf</option>
+                    </select>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('addPlanModal')">取消</button>
-                <button class="btn btn-primary" onclick="alert('计划已创建'); closeModal('addPlanModal')">确认新建</button>
+
+            <div class="form-group">
+                <label class="form-label">备注</label>
+                <textarea class="form-control" rows="2"></textarea>
             </div>
         </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('addPlanModal')">取消</button>
+            <button class="btn btn-primary" onclick="alert('计划已创建'); closeModal('addPlanModal')">确认新建</button>
+        </div>
+    </div>
     </div>
 
     <!-- Select Entrustment Modal -->

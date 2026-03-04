@@ -769,12 +769,12 @@
         }
 
         .menu-item {
-            padding: 12px 16px;
+            padding: 10px 16px;
             margin-bottom: 4px;
             cursor: pointer;
             border-radius: 8px;
-            font-size: 15px;
-            color: #333;
+            font-size: 14px;
+            color: var(--text-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -784,15 +784,16 @@
 
         .menu-item i {
             font-size: 16px;
-            color: #333;
+            color: var(--inner-sidebar-icon-color, #333);
         }
 
         .menu-item:hover {
-            background-color: #f5f5f5;
+            background-color: #f0f7ff;
+            color: #0060df;
         }
 
         .menu-item.active {
-            background-color: #eaf5ff;
+            background-color: #e6f4ff;
             color: #0060df;
             font-weight: 600;
         }
@@ -9835,6 +9836,7 @@
                     高明检测管理系统
                 </a>
                 <nav class="main-nav">
+                    <a href="index.html" class="nav-item-top">业务流程</a>
                     <a href="dashboard.html" class="nav-item-top">工作台</a>
                     <a href="entrustment.html" class="nav-item-top">委托管理</a>
                     <a href="indoor-allocation.html" class="nav-item-top">任务分配</a>
@@ -9861,19 +9863,22 @@
                 </div>
                 <div class="menu-list">
                     <a href="site-execution.html" class="menu-item">
-                        <span class="menu-item-left"><i class="fa-solid fa-list-check"></i> 工作量登记</span>
+                        <span class="menu-item-left"><i class="fa-solid fa-list-check"
+                                style="display: inline-block; width: 18px; text-align: center;"></i> 工作量登记</span>
                         <span class="badge-sidebar badge-sidebar-info">5</span>
                     </a>
                     <a href="site-report-generate.html" class="menu-item">
-                        <span class="menu-item-left"><i class="fa-solid fa-file-circle-plus"></i> 生成报告</span>
+                        <span class="menu-item-left"><i class="fa-solid fa-file-circle-plus"
+                                style="display: inline-block; width: 18px; text-align: center;"></i> 生成报告</span>
                         <span class="badge-sidebar badge-sidebar-warning">3</span>
                     </a>
-                    <div class="submenu">
-                        <a href="site-report-list.html" class="submenu-item">报告编写列表</a>
-                        <a href="site-report-edit.html" class="submenu-item active">报告编写</a>
-                    </div>
+                    <a href="site-report-list.html" class="menu-item active">
+                        <span class="menu-item-left"><i class="fa-solid fa-pen-to-square"
+                                style="display: inline-block; width: 18px; text-align: center;"></i> 报告编写</span>
+                    </a>
                     <a href="site-data-verify.html" class="menu-item">
-                        <span class="menu-item-left"><i class="fa-solid fa-clipboard-check"></i> 检测数据校核</span>
+                        <span class="menu-item-left"><i class="fa-solid fa-clipboard-check"
+                                style="display: inline-block; width: 18px; text-align: center;"></i> 检测数据校核</span>
                         <span class="badge-sidebar badge-sidebar-warning">4</span>
                     </a>
                 </div>
