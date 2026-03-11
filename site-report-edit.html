@@ -10191,7 +10191,7 @@
                         <div class="section-title">
                             <i class="fa-solid fa-users" style="color: #1890ff;"></i> 检测人员
                         </div>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
                             <div class="form-group">
                                 <label class="form-label">检测人</label>
                                 <input type="text" class="form-control" value="张伟、李明">
@@ -10199,6 +10199,14 @@
                             <div class="form-group">
                                 <label class="form-label">编写人</label>
                                 <input type="text" class="form-control" value="陈宏甘">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">审核人</label>
+                                <input type="text" class="form-control" value="李旭">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">批准人</label>
+                                <input type="text" class="form-control" value="张莲">
                             </div>
                         </div>
 
@@ -10211,8 +10219,9 @@
                                 <div style="flex: 1;">
                                     <label class="form-label">结论</label>
                                     <select class="form-control" id="conclusionSelect" onchange="updateConclusion()">
-                                        <option value="pass" selected>检测值符合要求</option>
-                                        <option value="fail">检测值不符合要求</option>
+                                        <option value="pass" selected>合格</option>
+                                        <option value="fail">不合格</option>
+                                        <option value="fail">不做评定</option>
                                     </select>
                                 </div>
                                 <div style="flex: 2;">

@@ -9762,12 +9762,16 @@
                             <h2 style="font-size: 20px; font-weight: 600;">低应变法检测记录</h2>
                             <div style="color: #666; font-size: 13px; margin-top: 4px;">桩号: P-052</div>
                         </div>
-                        <div>
-                            <button class="btn btn-secondary">导入波形文件</button>
+                        <div style="margin-bottom: 12px;">
+                            <button class="btn btn-secondary">导入检测结果excel文件</button>
+                            <button class="btn btn-secondary">上传波形图</button>
+                            <button class="btn btn-secondary">上传检测桩平面图</button>
+                            <button class="btn btn-secondary">上传地质资料附图</button>
+                            <button class="btn btn-secondary">上传检测方案</button>
+                            <button class="btn btn-secondary">上传其他附图</button>
                             <button class="btn btn-primary" onclick="saveRecord()">保存记录</button>
                         </div>
                     </div>
-
                     <div class="form-grid"
                         style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px; gap: 16px;">
                         <!-- Row 1: Basic Info -->
@@ -9776,74 +9780,39 @@
                             <input type="text" class="form-control" value="P-052" disabled>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">桩径 (mm)</label>
-                            <input type="number" class="form-control" value="500">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">实际桩长 (m)</label>
-                            <input type="number" class="form-control" value="32.5">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">成桩日期</label>
-                            <input type="date" class="form-control" value="2025-09-12">
-                        </div>
-
-                        <!-- Row 2: Technical Info -->
-                        <div class="form-group">
-                            <label class="form-label">配桩情况</label>
-                            <input type="text" class="form-control" placeholder="上+中+下">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">承载力特征值 (kN)</label>
-                            <input type="number" class="form-control" value="1200">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">混凝土强度</label>
-                            <input type="text" class="form-control" value="C80">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">桩身波速 (m/s)</label>
-                            <input type="number" class="form-control" value="3800">
-                        </div>
-
-                        <!-- Row 3: Geological & Hammer Info -->
-                        <div class="form-group">
-                            <label class="form-label">桩端持力层</label>
-                            <input type="text" class="form-control" value="中风化灰岩">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">入岩深度 (m)</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">锤型</label>
+                            <label class="form-label">桩基类型</label>
                             <select class="form-control">
                                 <option></option>
-                                <option>自由落锤</option>
-                                <option>柴油锤</option>
+                                <option>静压混凝土预制管桩</option>
+                                <option>锤击混凝土预制管桩</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">锤重 (t)</label>
-                            <input type="number" class="form-control">
+                            <label class="form-label">桩长 (m)</label>
+                            <input type="number" class="form-control" value="32.5">
                         </div>
+                        <div class="form-group">
+                            <label class="form-label">截面尺寸(mm)</label>
+                            <input type="number" class="form-control" value="500">
 
-                        <!-- Row 4: Hammer Details & Remarks -->
-                        <div class="form-group">
-                            <label class="form-label">落距 (m)</label>
-                            <input type="number" class="form-control">
+
+                            <!-- Row 2: Technical Info -->
                         </div>
                         <div class="form-group">
-                            <label class="form-label">总锤击数</label>
-                            <input type="number" class="form-control">
+                            <label class="form-label">波速(m/s)</label>
+                            <input type="text" class="form-control" value="30">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">最后三阵贯入度</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">桩身结构完整性描述</label>
+                            <input type="text" class="form-control" placeholder="轻微缺陷">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">备注 (焊接方式)</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">类别</label>
+                            <input type="text" class="form-control" value="Ⅱ类">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">备注</label>
+                            <input type="text" class="form-control" value="C80">
                         </div>
                     </div>
 
@@ -9855,24 +9824,24 @@
                     </div>
 
                     <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid #eee;">
-                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">分析与结论</h4>
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">总结论</h4>
                         <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
                             <div class="form-group">
-                                <label class="form-label">完整性类别</label>
+                                <label class="form-label">结论状态</label>
                                 <select class="form-control">
-                                    <option>Ⅰ类桩 (桩身完整)</option>
-                                    <option>Ⅱ类桩 (轻微缺陷)</option>
-                                    <option>Ⅲ类桩 (明显缺陷)</option>
-                                    <option>Ⅳ类桩 (严重缺陷)</option>
+                                    <option></option>
+                                    <option>不做评定</option>
+                                    <option>合格</option>
+                                    <option>不合格</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">缺陷位置 (m)</label>
-                                <input type="text" class="form-control" placeholder="无">
-                            </div>
                             <div class="form-group" style="grid-column: span 2;">
-                                <label class="form-label">缺陷描述/分析意见</label>
-                                <textarea class="form-control" rows="2">波形规则，波速正常，桩身完整。</textarea>
+                                <label class="form-label">结论</label>
+                                <textarea class="form-control" rows="2">本次试验共检测3根工程桩，其中：
+Ⅰ类桩2根，占所测桩数的66.66％；
+Ⅱ类桩1根，占所测桩数的33.33％；
+Ⅲ类桩0根，占所测桩数的0.00％；
+Ⅳ类桩0根，占所测桩数的0.00％。</textarea>
                             </div>
                         </div>
                     </div>
@@ -10103,20 +10072,13 @@
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${pileNo}</td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value="500"></td>
+                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value="静压混凝土预制管桩"></td>
                     <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
                     <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
                     <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value="1200"></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value="中风化灰岩"></td>
+                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value="轻微缺陷"></td>
                     <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
-                    <td><input type="date" class="form-control" style="height: 30px; font-size: 12px;" value="2025-09-12"></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value="C80"></td>
-                    <td><select class="form-control" style="height: 30px; font-size: 12px;"><option></option><option>自由落锤</option><option>柴油锤</option></select></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
-                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;"></td>
+                    <td><input type="text" class="form-control" style="height: 30px; font-size: 12px;" value=""></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -10145,6 +10107,7 @@
             style="width: 100vw; height: 100vh; max-width: none; border-radius: 0; display: flex; flex-direction: column;">
             <div class="modal-header">
                 <h3 class="modal-title">低应变法检测 - 批量录入</h3>
+                <button class="btn btn-secondary">导入检测结果excel文件</button>
                 <span class="modal-close" onclick="closeModal('batchEntryModal')">&times;</span>
             </div>
             <div class="modal-body"
@@ -10161,33 +10124,18 @@
                             <col style="width: 100px;">
                             <col style="width: 80px;">
                             <col style="width: 100px;">
-                            <col style="width: 100px;">
-                            <col style="width: 90px;">
-                            <col style="width: 80px;">
-                            <col style="width: 80px;">
-                            <col style="width: 80px;">
-                            <col style="width: 120px;">
-                            <col style="width: 100px;">
                         </colgroup>
                         <thead>
                             <tr>
                                 <th style="background: #f9fafb; text-align: center; white-space: nowrap;">序号</th>
                                 <th style="background: #f9fafb; white-space: nowrap;">桩号</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">桩径 (mm)</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">实际桩长(m)</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">配桩情况</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">承载力特征值</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">桩端持力层</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">入岩深度(m)</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">成桩日期</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">桩身强度</th>
-                                <!-- Hammer columns -->
-                                <th style="background: #f9fafb; white-space: nowrap;">锤型</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">锤重 (t)</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">落距 (m)</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">总锤击数</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">最后三阵贯入度</th>
-                                <th style="background: #f9fafb; white-space: nowrap;">备注 (焊接方式)</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">桩基类型</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">桩长(m)</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">截面尺寸(mm)</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">波速(m/s)</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">桩身结构完整性描述</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">类别</th>
+                                <th style="background: #f9fafb; white-space: nowrap;">备注</th>
                             </tr>
                         </thead>
                         <tbody>
